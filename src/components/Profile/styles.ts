@@ -7,14 +7,14 @@ export const Container = styled.div`
 	align-items: center;
 	justify-content: center;
 	border-radius: 50%;
-	border: 2px solid ${({ theme }) => theme.colors.secondary};
-	color: ${({ theme }) => theme.colors.secondary};
+	border: 2px solid ${({ theme }) => theme.colors.primary};
+	color: ${({ theme }) => theme.colors.primary};
 	font-size: 0.8rem;
 	font-weight: bold;
 	cursor: pointer;
 
 	&:hover {
-		background-color: ${({ theme }) => theme.colors.secondary};
+		background-color: ${({ theme }) => theme.colors.primary};
 		color: ${({ theme }) => theme.colors.white};
 	}
 `;

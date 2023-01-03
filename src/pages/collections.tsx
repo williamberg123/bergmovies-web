@@ -3,11 +3,11 @@ import Head from 'next/head';
 import { Header } from '../components/Header';
 import { HomePageContainer } from '../styles/pages/home';
 
-const Home: NextPage = () => {
+const Collections: NextPage = () => {
 	return (
 		<>
 			<Head>
-				<title>Filmes</title>
+				<title>Coleções</title>
 			</Head>
 			<HomePageContainer>
 				<Header />
@@ -16,4 +16,4 @@ const Home: NextPage = () => {
 	);
 };
 
-export default Home;
+export default Collections;

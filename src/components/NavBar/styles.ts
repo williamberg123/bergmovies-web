@@ -28,6 +28,10 @@ export const Navigation = styled.ul`
 		color: ${({ theme }) => theme.colors.primary};
 	}
 
+	& a.page {
+		color: ${({ theme }) => theme.colors.primary};
+	}
+
 	& svg {
 		width: 20px;
 		height: 20px;
