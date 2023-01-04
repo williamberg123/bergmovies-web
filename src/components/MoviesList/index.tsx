@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { SlArrowLeft, SlArrowRight } from 'react-icons/sl';
 
 import { Movie } from '../Movie';
@@ -11,15 +11,7 @@ export interface MoviesListProps {
 
 export const MoviesList: FC<MoviesListProps> = ({ title, items }: MoviesListProps) => {
 	const [scrollX, setScrollX] = useState(0);
-	const [maximumScroll] = useState(() => {
-		const listWidth = global?.window?.document?.getElementById('list')?.clientWidth;
-		const listContainerWidth = global?.window?.document?.getElementById('list-container')?.clientWidth;
-		const documentWidth = global?.window?.document?.body?.clientWidth;
-
-		if (!listWidth || !listContainerWidth || (documentWidth >= listWidth)) return null;
-
-		return listContainerWidth - listWidth;
-	});
+	const [maximumScroll, setMaximumScroll] = useState<number | null>(null);
 
 	const handleRight = () => {
 		if (!maximumScroll) return;
@@ -40,24 +32,58 @@ export const MoviesList: FC<MoviesListProps> = ({ title, items }: MoviesListProp
 		setScrollX((s) => s + 400);
 	};
 
+	const changeMaximumScroll = () => {
+		if (typeof window === 'undefined') {
+			setMaximumScroll(null);
+			return;
+		}
+
+		const listWidth = window?.document?.getElementById('list')?.clientWidth;
+		const listContainerWidth = window?.document?.getElementById('list-container')?.clientWidth;
+		const documentWidth = window?.document?.body?.clientWidth;
+
+		if (!listWidth || !listContainerWidth || (documentWidth >= listWidth)) {
+			setMaximumScroll(null);
+			return;
+		}
+
+		setMaximumScroll(listContainerWidth - listWidth);
+	};
+
+	useEffect(() => {
+		changeMaximumScroll();
+	}, []);
+
 	return (
 		<Container>
 			<MoviesListTitle>{title}</MoviesListTitle>
 			<MoviesContainer id="list-container">
 
-				{
+				{/* {
 					scrollX < 0 && (
 						<ArrowLeft onClick={handleLeft}>
 							<SlArrowLeft />
 						</ArrowLeft>
 					)
-				}
+				} */}
+
+				<ArrowLeft onClick={handleLeft}>
+					<SlArrowLeft />
+				</ArrowLeft>
 
 				<Movies id="list" style={{ marginLeft: scrollX }}>
 					{
 						items.map((item, index: number) => <Movie key={`movie-${index}`} />)
 					}
 				</Movies>
+
+				{/* {
+					(maximumScroll && scrollX > maximumScroll) && (
+						<ArrowRight onClick={handleRight}>
+							<SlArrowRight />
+						</ArrowRight>
+					)
+				} */}
 
 				<ArrowRight onClick={handleRight}>
 					<SlArrowRight />

@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
+import { FeaturedMovie } from '../components/FeaturedMovie';
 import { Header } from '../components/Header';
 import { MoviesList } from '../components/MoviesList';
 import { HomePageContainer } from '../styles/pages/home';
@@ -12,7 +13,8 @@ const Home: NextPage = () => {
 			</Head>
 			<HomePageContainer>
 				<Header />
-				<MoviesList title="Recomendados para você" items={Array(20).fill('')} />
+				<FeaturedMovie />
+				<MoviesList title="Recomendados" items={Array(20).fill('')} />
 			</HomePageContainer>
 		</>
 	);

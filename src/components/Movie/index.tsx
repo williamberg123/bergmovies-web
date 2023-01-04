@@ -27,7 +27,7 @@ export const Movie: FC = () => {
 
 	return (
 		<Container>
-			<MoviePoster src="https://image.tmdb.org/t/p/w500/zQJcENHbZUpLQ8RKYt9wTzcXCwv.jpg" />
+			<MoviePoster src="https://image.tmdb.org/t/p/w300/mbYQLLluS651W89jO7MOZcLSCUw.jpg" />
 			<HiddenContent>
 				<MovieName>Homem-aranha: Sem volta para casa</MovieName>
 

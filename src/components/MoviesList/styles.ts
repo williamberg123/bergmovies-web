@@ -16,7 +16,6 @@ export const MoviesContainer = styled.div`
 	display: flex;
 	overflow-x: hidden;
 	margin: 0 0 40px;
-	padding-left: 10px;
 	color: white;
 	position: relative;
 `;
@@ -25,13 +24,13 @@ export const Movies = styled.div`
 	width: fit-content;
 	display: flex;
 	align-items: center;
-	padding-top: 30px;
+	padding: 30px 0;
 	transition: 1s;
 `;
 
 export const ArrowLeft = styled.button`
 	width: 50px;
-	height: 100px;
+	height: 250px;
 	background-color: rgba(0, 0, 0, 0.6);
 	position: absolute;
 	z-index: 5;
@@ -39,7 +38,7 @@ export const ArrowLeft = styled.button`
 	color: ${({ theme }) => theme.colors.white};
 	border-radius: 10px;
 	cursor: pointer;
-	top: calc(50% - 50px);
+	top: calc(50% - 125px);
 	left: 0;
 
 	&:hover {
@@ -54,5 +53,4 @@ export const ArrowLeft = styled.button`
 
 export const ArrowRight = styled(ArrowLeft)`
 	left: calc(100% - 50px);
-	top: calc(50% - 50px);
 `;
