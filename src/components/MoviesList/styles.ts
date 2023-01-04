@@ -15,8 +15,10 @@ export const MoviesListTitle = styled.span`
 export const MoviesContainer = styled.div`
 	display: flex;
 	overflow-x: hidden;
-	margin: 20px 0 40px;
-	padding-left: 40px;
+	margin: 0 0 40px;
+	padding-left: 10px;
+	color: white;
+	position: relative;
 `;
 
 export const Movies = styled.div`
@@ -24,4 +26,33 @@ export const Movies = styled.div`
 	display: flex;
 	align-items: center;
 	padding-top: 30px;
+	transition: 1s;
+`;
+
+export const ArrowLeft = styled.button`
+	width: 50px;
+	height: 100px;
+	background-color: rgba(0, 0, 0, 0.6);
+	position: absolute;
+	z-index: 5;
+	border: none;
+	color: ${({ theme }) => theme.colors.white};
+	border-radius: 10px;
+	cursor: pointer;
+	top: calc(50% - 50px);
+	left: 0;
+
+	&:hover {
+		background-color: black;
+	}
+
+	& svg {
+		width: 30px;
+		height: 30px;
+	}
+`;
+
+export const ArrowRight = styled(ArrowLeft)`
+	left: calc(100% - 50px);
+	top: calc(50% - 50px);
 `;

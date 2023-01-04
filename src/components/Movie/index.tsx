@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import Link from 'next/link';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { SlClose } from 'react-icons/sl';
+import { IoIosArrowDown } from 'react-icons/io';
 
 import { Container, HiddenContent, MovieName, MoviePoster, Options, AddToCollectionButton, OptionsContainer, AddToFavoritesButton, CloseOptionsButton } from './styles';
 
@@ -40,7 +41,10 @@ export const Movie: FC = () => {
 								<CloseOptionsButton onClick={() => setIsOpenOptions(false)}>
 									<SlClose />
 								</CloseOptionsButton>
-								<AddToCollectionButton>Adicionar à coleção</AddToCollectionButton>
+								<AddToCollectionButton>
+									Adicionar à coleção
+									<IoIosArrowDown />
+								</AddToCollectionButton>
 								<AddToFavoritesButton>Adicionar aos favoritos</AddToFavoritesButton>
 							</Options>
 						)

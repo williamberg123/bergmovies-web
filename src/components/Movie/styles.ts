@@ -2,15 +2,15 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
 	display: flex;
-	width: 200px;
+	width: 180px;
 	border-radius: 10px;
 	margin: 0 10px;
 	position: relative;
 	user-select: none;
 
 	&:hover {
-		transform: translateY(-20px);
-		transition: 0.4s;
+		transform: translateY(-10px);
+		transition: all ease 0.4s;
 	}
 `;
 
@@ -36,6 +36,7 @@ export const HiddenContent = styled.div`
 
 	&:hover {
 		opacity: 1;
+		transition-delay: 0.2s;
 	}
 
 	& a {
@@ -86,6 +87,9 @@ export const Options = styled.div`
 `;
 
 export const AddToCollectionButton = styled.button`
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	width: 170px;
 	height: 40px;
 	border-radius: 50px;
@@ -96,6 +100,12 @@ export const AddToCollectionButton = styled.button`
 	font-size: 0.7rem;
 	font-weight: bold;
 	cursor: pointer;
+
+	& svg {
+		margin-left: 5px;
+		width: 15px;
+		height: 15px;
+	}
 
 	&:hover {
 		background-color: ${({ theme }) => theme.colors.primary};

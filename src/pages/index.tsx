@@ -12,10 +12,7 @@ const Home: NextPage = () => {
 			</Head>
 			<HomePageContainer>
 				<Header />
-				<MoviesList title="Recomendados para você" items={Array(10).fill('')} />
-				<MoviesList title="Ação" items={Array(10).fill('')} />
-				<MoviesList title="Comédia" items={Array(10).fill('')} />
-				<MoviesList title="Drama" items={Array(10).fill('')} />
+				<MoviesList title="Recomendados para você" items={Array(20).fill('')} />
 			</HomePageContainer>
 		</>
 	);
