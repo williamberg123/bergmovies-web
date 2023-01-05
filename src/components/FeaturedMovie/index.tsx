@@ -1,19 +1,30 @@
+import Link from 'next/link';
 import { FC } from 'react';
 import { FaStar } from 'react-icons/fa';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
-import { AgeClassification, BackdropImage, Container, MovieData, MovieInfoContainer, MovieOverview, MovieProductionCompanies, MovieProductionCompany, MovieRuntime, MovieTagline, MovieTitle, MovieVoteAverage, ShadowEffectToBottom, ShadowEffectToRight } from './styles';
+import { AgeClassification, BackdropImage, BackdropImageContainer, Container, MovieData, MovieInfoContainer, MovieOverview, MovieProductionCompanies, MovieProductionCompany, MovieRuntime, MovieTagline, MovieTitle, MovieVoteAverage, ShadowEffectToBottom, ShadowEffectToRight } from './styles';
 
 export const FeaturedMovie: FC = () => {
+	const isScreenLessThan900px = useMediaQuery('(max-width: 900px)');
+
 	const generateRuntime = (minutes: number) => {
 		const min = minutes % 60;
 		const hours = (minutes - min) / 60;
 
-		return `${hours}H${min}min`;
+		return `${hours}h${min}min`;
+	};
+
+	const convertAverage = (average: number) => {
+		return (average).toFixed(1);
 	};
 
 	return (
 		<Container>
-			<BackdropImage src="https://image.tmdb.org/t/p/original/5wDBVictj4wUYZ31gR5WzCM9dLD.jpg" />
+			<BackdropImageContainer>
+				<BackdropImage src="https://image.tmdb.org/t/p/original/5wDBVictj4wUYZ31gR5WzCM9dLD.jpg" />
+				<ShadowEffectToBottom />
+			</BackdropImageContainer>
 
 			<MovieInfoContainer>
 				<MovieTitle>Mundo Estranho</MovieTitle>
@@ -23,7 +34,7 @@ export const FeaturedMovie: FC = () => {
 					<MovieRuntime>{generateRuntime(102)}</MovieRuntime>
 					<AgeClassification>L</AgeClassification>
 					<MovieVoteAverage>
-						6.525
+						{convertAverage(6.525)}
 						<FaStar />
 					</MovieVoteAverage>
 				</MovieData>
@@ -38,10 +49,15 @@ export const FeaturedMovie: FC = () => {
 					<MovieProductionCompany src="https://image.tmdb.org/t/p/w200/wdrCwmRnLFJhEoH8GSfymY85KHT.png" />
 					<MovieProductionCompany src="https://image.tmdb.org/t/p/w200/tzsMJBJZINu7GHzrpYzpReWhh66.png" />
 				</MovieProductionCompanies>
+
+				<Link href="">Ver detalhes</Link>
 			</MovieInfoContainer>
 
-			<ShadowEffectToRight />
-			<ShadowEffectToBottom />
+			{
+				!isScreenLessThan900px && (
+					<ShadowEffectToRight />
+				)
+			}
 		</Container>
 	);
 };

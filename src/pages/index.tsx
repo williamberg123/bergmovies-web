@@ -15,6 +15,7 @@ const Home: NextPage = () => {
 				<Header />
 				<FeaturedMovie />
 				<MoviesList title="Recomendados" items={Array(20).fill('')} />
+				<MoviesList title="Recomendados" items={Array(20).fill('')} />
 			</HomePageContainer>
 		</>
 	);
