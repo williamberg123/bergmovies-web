@@ -19,7 +19,7 @@ export const Navigation = styled.ul`
 	background-color: ${({ theme }) => theme.colors.darkGray};
 	margin-left: auto;
 	z-index: 10;
-	transition: ease all 1s;
+	transition: ease all 0.4s;
 
 	& li {
 		margin: 20px;

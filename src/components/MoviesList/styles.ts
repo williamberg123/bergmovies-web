@@ -10,6 +10,10 @@ export const MoviesListTitle = styled.span`
 	color: ${({ theme }) => theme.colors.white};
 	font-size: 1.8rem;
 	font-weight: bold;
+
+	@media (max-width: 700px) {
+		font-size: 1.3rem;
+	}
 `;
 
 export const MoviesContainer = styled.div`
@@ -18,6 +22,10 @@ export const MoviesContainer = styled.div`
 	margin: 0 0 40px;
 	color: white;
 	position: relative;
+
+	@media (max-width: 700px) {
+		overflow-x: scroll;
+	}
 `;
 
 export const Movies = styled.div`

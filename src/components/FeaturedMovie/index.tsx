@@ -1,56 +1,85 @@
-import Link from 'next/link';
 import { FC } from 'react';
 import { FaStar } from 'react-icons/fa';
+import { BiCameraMovie } from 'react-icons/bi';
+
+import { Movie } from '../../@types/movie';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
-import { AgeClassification, BackdropImage, BackdropImageContainer, Container, MovieData, MovieInfoContainer, MovieOverview, MovieProductionCompanies, MovieProductionCompany, MovieRuntime, MovieTagline, MovieTitle, MovieVoteAverage, ShadowEffectToBottom, ShadowEffectToRight } from './styles';
+import {
+	BackdropImage,
+	BackdropImageContainer,
+	Container,
+	Genres,
+	MovieData,
+	MovieInfoContainer,
+	MovieOverview,
+	MovieRuntime,
+	MovieTagline,
+	MovieTitle,
+	MovieVoteAverage,
+	NowPlaying,
+	SeeDetails,
+	ShadowEffectToBottom,
+	ShadowEffectToRight,
+} from './styles';
+import { generateImageURL, generateRuntime } from '../../utils';
 
-export const FeaturedMovie: FC = () => {
+export const FeaturedMovie: FC<Movie> = (props: Movie) => {
+	const { id, title, tagline, overview, backdrop_path, runtime, vote_average, genres } = props;
+
 	const isScreenLessThan900px = useMediaQuery('(max-width: 900px)');
-
-	const generateRuntime = (minutes: number) => {
-		const min = minutes % 60;
-		const hours = (minutes - min) / 60;
-
-		return `${hours}h${min}min`;
-	};
 
 	const convertAverage = (average: number) => {
 		return (average).toFixed(1);
 	};
 
+	const overviewText = overview && overview?.length > 400
+	? `${overview?.split('').slice(0, 400).join('')} ...`
+	: overview;
+
+	const backdropImageUrl = isScreenLessThan900px
+	? generateImageURL('w780', backdrop_path || '')
+	: generateImageURL('original', backdrop_path || '');
+
 	return (
 		<Container>
 			<BackdropImageContainer>
-				<BackdropImage src="https://image.tmdb.org/t/p/original/5wDBVictj4wUYZ31gR5WzCM9dLD.jpg" />
+				<NowPlaying>
+					Nos cinemas
+					<BiCameraMovie />
+				</NowPlaying>
+				<BackdropImage src={backdropImageUrl} />
 				<ShadowEffectToBottom />
 			</BackdropImageContainer>
 
 			<MovieInfoContainer>
-				<MovieTitle>Mundo Estranho</MovieTitle>
-				<MovieTagline>Descubra as impossibilidades.</MovieTagline>
+				<MovieTitle>
+					{title}
+				</MovieTitle>
+				<MovieTagline>{tagline}</MovieTagline>
 
 				<MovieData>
-					<MovieRuntime>{generateRuntime(102)}</MovieRuntime>
-					<AgeClassification>L</AgeClassification>
+					<MovieRuntime>{generateRuntime(runtime)}</MovieRuntime>
+					<Genres>
+						{
+							genres.map(({ name }, index) => (
+								index > 0
+									? ` | ${name}`
+									: name
+							))
+						}
+					</Genres>
 					<MovieVoteAverage>
-						{convertAverage(6.525)}
+						{convertAverage(vote_average)}
 						<FaStar />
 					</MovieVoteAverage>
 				</MovieData>
 
 				<MovieOverview>
-					Uma lendária família de exploradores, os Clades, enquanto eles tentam navegar por uma terra
-					inexplorada e traiçoeira ao lado de uma equipe heterogênea, incluindo uma bolha travessa, um
-					cachorro de três patas e uma enorme quantidade de criaturas famintas.
+					{overviewText}
 				</MovieOverview>
 
-				<MovieProductionCompanies>
-					<MovieProductionCompany src="https://image.tmdb.org/t/p/w200/wdrCwmRnLFJhEoH8GSfymY85KHT.png" />
-					<MovieProductionCompany src="https://image.tmdb.org/t/p/w200/tzsMJBJZINu7GHzrpYzpReWhh66.png" />
-				</MovieProductionCompanies>
-
-				<Link href="">Ver detalhes</Link>
+				<SeeDetails href={`/movies/${id}`}>Ver detalhes</SeeDetails>
 			</MovieInfoContainer>
 
 			{

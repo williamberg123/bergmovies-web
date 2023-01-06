@@ -1,5 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { SlArrowLeft, SlArrowRight } from 'react-icons/sl';
+import { Movie as MovieType } from '../../@types/movie';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
 import { Movie } from '../Movie';
 import { ArrowLeft, ArrowRight, Container, Movies, MoviesContainer, MoviesListTitle } from './styles';
@@ -12,6 +14,8 @@ export interface MoviesListProps {
 export const MoviesList: FC<MoviesListProps> = ({ title, items }: MoviesListProps) => {
 	const [scrollX, setScrollX] = useState(0);
 	const [maximumScroll, setMaximumScroll] = useState<number | null>(null);
+
+	const isLessThan700px = useMediaQuery('(max-width: 700px)');
 
 	const handleRight = () => {
 		if (!maximumScroll) return;
@@ -52,42 +56,33 @@ export const MoviesList: FC<MoviesListProps> = ({ title, items }: MoviesListProp
 
 	useEffect(() => {
 		changeMaximumScroll();
-	}, []);
+	}, [items]);
 
 	return (
 		<Container>
 			<MoviesListTitle>{title}</MoviesListTitle>
 			<MoviesContainer id="list-container">
-
-				{/* {
-					scrollX < 0 && (
+				{
+					(!isLessThan700px && scrollX < 0) && (
 						<ArrowLeft onClick={handleLeft}>
 							<SlArrowLeft />
 						</ArrowLeft>
 					)
-				} */}
-
-				<ArrowLeft onClick={handleLeft}>
-					<SlArrowLeft />
-				</ArrowLeft>
+				}
 
 				<Movies id="list" style={{ marginLeft: scrollX }}>
 					{
-						items.map((item, index: number) => <Movie key={`movie-${index}`} />)
+						items.map((item: MovieType, index: number) => <Movie key={`movie-${index}`} {...item} />)
 					}
 				</Movies>
 
-				{/* {
-					(maximumScroll && scrollX > maximumScroll) && (
+				{
+					(!isLessThan700px && maximumScroll && scrollX > maximumScroll) && (
 						<ArrowRight onClick={handleRight}>
 							<SlArrowRight />
 						</ArrowRight>
 					)
-				} */}
-
-				<ArrowRight onClick={handleRight}>
-					<SlArrowRight />
-				</ArrowRight>
+				}
 			</MoviesContainer>
 
 		</Container>

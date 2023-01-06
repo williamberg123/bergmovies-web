@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -16,7 +17,7 @@ export const ShadowEffectToRight = styled.div`
 	position: absolute;
 	top: 0;
 	left: 0;
-	background-image: ${({ theme }) => `linear-gradient(to right, transparent, ${theme.colors.darkGray} 62%)`};
+	background-image: ${({ theme }) => `linear-gradient(to right, transparent, ${theme.colors.darkGray} 60%)`};
 `;
 
 export const ShadowEffectToBottom = styled(ShadowEffectToRight)`
@@ -25,6 +26,7 @@ export const ShadowEffectToBottom = styled(ShadowEffectToRight)`
 
 export const BackdropImageContainer = styled.div`
 	width: 60%;
+	aspect-ratio: 16/9;
 	position: relative;
 
 	@media (max-width: 900px) {
@@ -46,32 +48,40 @@ export const MovieInfoContainer = styled.div`
 	text-align: center;
 	z-index: 5;
 
-	& a {
-		width: 300px;
-		margin: 0 auto;
-		padding: 10px;
-		color: ${({ theme }) => theme.colors.white};
-		border: 2px solid ${({ theme }) => theme.colors.white};
-		border-radius: 50px;
-		text-decoration: none;
-		font-weight: 500;
-
-		&:hover {
-			background-color: ${({ theme }) => theme.colors.mediumGray};
-		}
-	}
-
 	@media (max-width: 900px) {
 		width: 100%;
 	}
 `;
+
+export const SeeDetails = styled(Link)`
+	width: 300px;
+	margin: 0 auto;
+	padding: 10px;
+	color: ${({ theme }) => theme.colors.primary};
+	border: 2px solid ${({ theme }) => theme.colors.primary};
+	border-radius: 50px;
+	text-decoration: none;
+	font-weight: 500;
+	margin-top: auto;
+
+	&:hover {
+		background-color: ${({ theme }) => theme.colors.primary};
+		color: ${({ theme }) => theme.colors.white};
+	}
+
+	@media (max-width: 900px) {
+		margin-top: 40px;
+	}
+`;
+
 export const MovieTitle = styled.span`
 	font-weight: bold;
-	font-size: 1.3rem;
+	font-size: 1.4rem;
 	color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const MovieTagline = styled.span`
+	font-size: 0.8rem;
 	color: ${({ theme }) => theme.colors.lightGray};
 	margin-top: 5px;
 `;
@@ -79,25 +89,12 @@ export const MovieTagline = styled.span`
 export const MovieData = styled.div`
 	display: flex;
 	align-items: center;
-	margin: 10px auto 20px;
+	margin: 20px auto;
 `;
 
 export const MovieRuntime = styled.span`
 	font-size: 0.8rem;
 	font-weight: bold;
-`;
-
-export const AgeClassification = styled.div`
-	width: 25px;
-	height: 25px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 0.75rem;
-	font-weight: bold;
-	border-radius: 5px;
-	background-color: ${({ theme }) => theme.colors.secondary};
-	margin: 0 20px;
 `;
 
 export const MovieVoteAverage = styled.span`
@@ -112,23 +109,39 @@ export const MovieVoteAverage = styled.span`
 `;
 
 export const MovieOverview = styled.span`
+	max-width: 450px;
 	font-size: 0.9rem;
 	color: ${({ theme }) => theme.colors.lightGray};
 	line-height: 1.5;
+	margin: 0 auto;
 `;
 
-export const MovieProductionCompanies = styled.div`
+export const Genres = styled.span`
+	font-size: 0.8rem;
+	color: ${({ theme }) => theme.colors.lightGray};
+	margin: 0 20px;
+	font-weight: 500;
+`;
+
+export const NowPlaying = styled.span`
 	display: flex;
 	align-items: center;
-	justify-content: space-around;
-	margin-top: auto;
-	margin-bottom: 40px;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	color: ${({ theme }) => theme.colors.white};
+	font-weight: bold;
+	text-shadow: 2px 2px 8px black;
+	z-index: 10;
 
-	@media (max-width: 900px) {
-		margin-top: 40px;
+	& svg {
+		width: 20px;
+		height: 20px;
+		margin-left: 5px;
 	}
-`;
 
-export const MovieProductionCompany = styled.img`
-	width: 80px;
+	@media (max-width: 600px) {
+		top: 10px;
+		left: 10px;
+	}
 `;

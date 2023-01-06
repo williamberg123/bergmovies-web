@@ -12,6 +12,10 @@ export const Container = styled.div`
 		transform: translateY(-10px);
 		transition: all ease 0.4s;
 	}
+
+	@media (max-width: 700px) {
+		width: 150px;
+	}
 `;
 
 export const MoviePoster = styled.img`
