@@ -9,8 +9,8 @@ export const Container = styled.div`
 	user-select: none;
 
 	&:hover {
-		transform: translateY(-10px);
-		transition: all ease 0.4s;
+		// transform: translateY(-10px);
+		// transition: all ease 0.4s;
 	}
 
 	@media (max-width: 700px) {

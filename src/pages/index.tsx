@@ -7,11 +7,13 @@ import { Header } from '../components/Header';
 import { MoviesList } from '../components/MoviesList';
 import { getData } from '../services/tmdb';
 import { HomePageContainer } from '../styles/pages/home';
+import MoreOptionsMovieModal from '../components/MoreOptionsMovieModal';
 
 const Home: NextPage = () => {
 	const [featuredMovie, setFeaturedMovie] = useState<Movie | null>(null);
 	const [topRated, setTopRated] = useState<Movie[] | null>(null);
 	const [recommendations, setRecommendations] = useState<Movie[] | null>(null);
+	const [isModalVisible, setIsModalVisible] = useState(false);
 
 	const getHomePageInfo = async () => {
 		const [topRatedResponse, nowPlayingResponse] = await Promise.all([
@@ -47,6 +49,9 @@ const Home: NextPage = () => {
 							<FeaturedMovie {...featuredMovie} />
 							<MoviesList title="Recomendados para você" items={recommendations} />
 							<MoviesList title="Em Alta" items={topRated} />
+							{
+								isModalVisible && <MoreOptionsMovieModal />
+							}
 						</>
 					)
 				}
