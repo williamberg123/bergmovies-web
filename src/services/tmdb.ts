@@ -12,6 +12,6 @@ export const getData = async (endpoint: string) => {
 		const { data } = await tmdb.get(`${endpoint}${BASE_CONFIG}`);
 		return data;
 	} catch (error) {
-		console.log(error);
+		// console.log(error);
 	}
 };

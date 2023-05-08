@@ -1,4 +1,4 @@
-interface ProductionCompany {
+export interface ProductionCompanyProps {
 	id: number;
 	logo_path: string;
 	name: string;
@@ -18,7 +18,8 @@ export interface Movie {
 	backdrop_path: string | null;
 	runtime: number;
 	vote_average: number;
-	production_companies: ProductionCompany[]
+	production_companies: ProductionCompanyProps[]
 	adult: boolean;
 	genres: Genre[];
+	release_date: Date;
 }

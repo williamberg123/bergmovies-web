@@ -8,11 +8,6 @@ export const Container = styled.div`
 	position: relative;
 	user-select: none;
 
-	&:hover {
-		// transform: translateY(-10px);
-		// transition: all ease 0.4s;
-	}
-
 	@media (max-width: 700px) {
 		width: 150px;
 	}
@@ -40,7 +35,6 @@ export const HiddenContent = styled.div`
 
 	&:hover {
 		opacity: 1;
-		transition-delay: 0.2s;
 	}
 
 	& a {

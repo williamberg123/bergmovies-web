@@ -1,19 +1,23 @@
 import { NextPage } from 'next';
+import { useSelector } from 'react-redux';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Movie } from '../@types/movie';
 import { FeaturedMovie } from '../components/FeaturedMovie';
 import { Header } from '../components/Header';
 import { MoviesList } from '../components/MoviesList';
 import { getData } from '../services/tmdb';
 import { HomePageContainer } from '../styles/pages/home';
-import MoreOptionsMovieModal from '../components/MoreOptionsMovieModal';
+import MoreOptionsMovieModal, { ModalType } from '../components/MoreOptionsMovieModal';
 
 const Home: NextPage = () => {
 	const [featuredMovie, setFeaturedMovie] = useState<Movie | null>(null);
 	const [topRated, setTopRated] = useState<Movie[] | null>(null);
 	const [recommendations, setRecommendations] = useState<Movie[] | null>(null);
-	const [isModalVisible, setIsModalVisible] = useState(false);
+
+	const isFirstRender = useRef(true);
+
+	const { modal } = useSelector((state: { modal: ModalType }) => state);
 
 	const getHomePageInfo = async () => {
 		const [topRatedResponse, nowPlayingResponse] = await Promise.all([
@@ -33,7 +37,10 @@ const Home: NextPage = () => {
 	};
 
 	useEffect(() => {
-		getHomePageInfo();
+		if (isFirstRender.current) {
+			getHomePageInfo();
+			isFirstRender.current = false;
+		}
 	}, []);
 
 	return (
@@ -49,11 +56,11 @@ const Home: NextPage = () => {
 							<FeaturedMovie {...featuredMovie} />
 							<MoviesList title="Recomendados para você" items={recommendations} />
 							<MoviesList title="Em Alta" items={topRated} />
-							{
-								isModalVisible && <MoreOptionsMovieModal />
-							}
 						</>
 					)
+				}
+				{
+					modal.isVisible && <MoreOptionsMovieModal />
 				}
 			</HomePageContainer>
 		</>
