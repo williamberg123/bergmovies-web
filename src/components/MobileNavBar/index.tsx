@@ -3,30 +3,23 @@ import { FC } from 'react';
 import { BiMovie } from 'react-icons/bi';
 import { FaTv } from 'react-icons/fa';
 import { MdCollections, MdBookmarks } from 'react-icons/md';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeState, PageType } from '../../store/page';
 
 import { NavBarContainer, Navigation } from './styles';
+import { useCurrentPage } from '../../hooks/useCurrentPage';
 
 export interface MobileNavBarProps {
 	isOpen: boolean;
 }
 
 export const MobileNavBar: FC<MobileNavBarProps> = ({ isOpen }: MobileNavBarProps) => {
-	const { page } = useSelector((state: { page: PageType }) => state);
-	const dispatch = useDispatch();
-
-	const onClick = (p: PageType) => {
-		dispatch(changeState(p));
-	};
+	const { currentPage } = useCurrentPage();
 
 	return (
 		<NavBarContainer style={{ backgroundColor: isOpen ? 'rgba(0, 0, 0, 0.7)' : 'transparent' }}>
 			<Navigation style={{ marginLeft: isOpen ? '30%' : '100%' }}>
 				<li>
 					<Link
-						onClick={() => onClick('movies')}
-						className={page === 'movies' ? 'page' : ''}
+						className={currentPage === 'movies' ? 'page' : ''}
 						href="/"
 					>
 						<BiMovie />
@@ -36,8 +29,7 @@ export const MobileNavBar: FC<MobileNavBarProps> = ({ isOpen }: MobileNavBarProp
 
 				<li>
 					<Link
-						onClick={() => onClick('series')}
-						className={page === 'series' ? 'page' : ''}
+						className={currentPage === 'series' ? 'page' : ''}
 						href="/series"
 					>
 						<FaTv />
@@ -47,8 +39,7 @@ export const MobileNavBar: FC<MobileNavBarProps> = ({ isOpen }: MobileNavBarProp
 
 				<li>
 					<Link
-						onClick={() => onClick('collections')}
-						className={page === 'collections' ? 'page' : ''}
+						className={currentPage === 'collections' ? 'page' : ''}
 						href="/collections"
 					>
 						<MdCollections />
@@ -58,8 +49,7 @@ export const MobileNavBar: FC<MobileNavBarProps> = ({ isOpen }: MobileNavBarProp
 
 				<li>
 					<Link
-						onClick={() => onClick('favorites')}
-						className={page === 'favorites' ? 'page' : ''}
+						className={currentPage === 'favorites' ? 'page' : ''}
 						href="/favorites"
 					>
 						<MdBookmarks />

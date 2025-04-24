@@ -21,6 +21,7 @@ export const Modal = styled.div`
 	padding: 20px;
 	border-radius: 10px;
     background-color: #111;
+	position: relative;
 `;
 
 export const ModalHeader = styled.span`

@@ -13,8 +13,29 @@ export const Container = styled.div`
 	font-weight: bold;
 	cursor: pointer;
 
-	&:hover {
+	& > a {
+		text-decoration: none;
+		width: inherit;
+		height: inherit;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: ${({ theme }) => theme.colors.primary};
+	}
+
+	& > a.page {
 		background-color: ${({ theme }) => theme.colors.primary};
 		color: ${({ theme }) => theme.colors.white};
+	}
+
+
+	&:hover {
+		background-color: ${({ theme }) => theme.colors.primary};
+
+		a {
+			background-color: ${({ theme }) => theme.colors.primary};
+			color: ${({ theme }) => theme.colors.white};
+		}
 	}
 `;

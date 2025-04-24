@@ -22,10 +22,6 @@ export const MoviesContainer = styled.div`
 	margin: 0 0 40px;
 	color: white;
 	position: relative;
-
-	@media (max-width: 700px) {
-		overflow-x: scroll;
-	}
 `;
 
 export const Movies = styled.div`
@@ -56,6 +52,11 @@ export const ArrowLeft = styled.button`
 	& svg {
 		width: 30px;
 		height: 30px;
+	}
+
+	@media (max-width: 700px) {
+		height: 100px;
+		top: calc(50% - 50px);
 	}
 `;
 

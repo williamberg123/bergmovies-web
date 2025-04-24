@@ -10,7 +10,7 @@ interface Genre {
 }
 
 export interface Movie {
-	id: number;
+	id: string;
 	title: string;
 	tagline: string;
 	overview: string | null;
@@ -22,4 +22,5 @@ export interface Movie {
 	adult: boolean;
 	genres: Genre[];
 	release_date: Date;
+	media_type: 'movie' | 'serie';
 }

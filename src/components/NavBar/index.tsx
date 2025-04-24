@@ -3,26 +3,19 @@ import { FC } from 'react';
 import { BiMovie } from 'react-icons/bi';
 import { FaTv } from 'react-icons/fa';
 import { MdCollections, MdBookmarks } from 'react-icons/md';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeState, PageType } from '../../store/page';
 
 import { NavBarContainer, Navigation } from './styles';
+import { useCurrentPage } from '../../hooks/useCurrentPage';
 
 export const NavBar: FC = () => {
-	const { page } = useSelector((state: { page: PageType }) => state);
-	const dispatch = useDispatch();
-
-	const onClick = (p: PageType) => {
-		dispatch(changeState(p));
-	};
+	const { currentPage } = useCurrentPage();
 
 	return (
 		<NavBarContainer>
 			<Navigation>
 				<li>
 					<Link
-						onClick={() => onClick('movies')}
-						className={page === 'movies' ? 'page' : ''}
+						className={currentPage === 'movies' ? 'page' : ''}
 						href="/"
 					>
 						<BiMovie />
@@ -32,8 +25,7 @@ export const NavBar: FC = () => {
 
 				<li>
 					<Link
-						onClick={() => onClick('series')}
-						className={page === 'series' ? 'page' : ''}
+						className={currentPage === 'series' ? 'page' : ''}
 						href="/series"
 					>
 						<FaTv />
@@ -43,8 +35,7 @@ export const NavBar: FC = () => {
 
 				<li>
 					<Link
-						onClick={() => onClick('collections')}
-						className={page === 'collections' ? 'page' : ''}
+						className={currentPage === 'collections' ? 'page' : ''}
 						href="/collections"
 					>
 						<MdCollections />
@@ -54,8 +45,7 @@ export const NavBar: FC = () => {
 
 				<li>
 					<Link
-						onClick={() => onClick('favorites')}
-						className={page === 'favorites' ? 'page' : ''}
+						className={currentPage === 'favorites' ? 'page' : ''}
 						href="/favorites"
 					>
 						<MdBookmarks />

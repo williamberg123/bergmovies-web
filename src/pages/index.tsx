@@ -1,46 +1,29 @@
-import { NextPage } from 'next';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import Head from 'next/head';
-import { useEffect, useRef, useState } from 'react';
-import { Movie } from '../@types/movie';
+import { NextPage } from 'next';
+
 import { FeaturedMovie } from '../components/FeaturedMovie';
 import { Header } from '../components/Header';
 import { MoviesList } from '../components/MoviesList';
-import { getData } from '../services/tmdb';
+import FirstPageLoading from '../components/FirstPageLoading';
+import MoreOptionsItemModal from '../components/MoreOptionsItemModal';
+import NewCollectionModal from '../components/NewCollectionModal';
+
+import { useMoreOptionsItemModal } from '../hooks/useMoreOptionsItemModal';
+import { useCollections } from '../hooks/useCollections';
+import { useHome } from '../hooks/useHome';
+
 import { HomePageContainer } from '../styles/pages/home';
-import MoreOptionsMovieModal, { ModalType } from '../components/MoreOptionsMovieModal';
+import { useCurrentPage } from '../hooks/useCurrentPage';
 
 const Home: NextPage = () => {
-	const [featuredMovie, setFeaturedMovie] = useState<Movie | null>(null);
-	const [topRated, setTopRated] = useState<Movie[] | null>(null);
-	const [recommendations, setRecommendations] = useState<Movie[] | null>(null);
-
-	const isFirstRender = useRef(true);
-
-	const { modal } = useSelector((state: { modal: ModalType }) => state);
-
-	const getHomePageInfo = async () => {
-		const [topRatedResponse, nowPlayingResponse] = await Promise.all([
-			getData('/movie/top_rated'), getData('/movie/now_playing'),
-		]);
-
-		const randomIndex = Math.floor(Math.random() * (nowPlayingResponse.results.length));
-		const featuredMovieId = nowPlayingResponse.results[randomIndex].id;
-
-		const [featuredMovieResponse, recommendatedMoviesResponse] = await Promise.all([
-			getData(`/movie/${featuredMovieId}`), getData(`/movie/${featuredMovieId}/recommendations`),
-		]);
-
-		setFeaturedMovie(featuredMovieResponse);
-		setRecommendations(recommendatedMoviesResponse.results);
-		setTopRated(topRatedResponse.results);
-	};
+	const { featuredMovie, recommendations, topRated, pageIsLoading } = useHome();
+	const { isMoreOptionsItemModalVisible } = useMoreOptionsItemModal();
+	const { isNewCollectionModalVisible } = useCollections();
+	const { changePage } = useCurrentPage();
 
 	useEffect(() => {
-		if (isFirstRender.current) {
-			getHomePageInfo();
-			isFirstRender.current = false;
-		}
+		changePage('movies');
 	}, []);
 
 	return (
@@ -51,16 +34,25 @@ const Home: NextPage = () => {
 			<HomePageContainer>
 				<Header />
 				{
-					(topRated && recommendations && featuredMovie) && (
+					pageIsLoading && <FirstPageLoading />
+				}
+
+				{
+					(!pageIsLoading) && (
 						<>
-							<FeaturedMovie {...featuredMovie} />
-							<MoviesList title="Recomendados para você" items={recommendations} />
-							<MoviesList title="Em Alta" items={topRated} />
+							<FeaturedMovie {...featuredMovie!} />
+							<MoviesList title="Recomendados para você" items={recommendations!} />
+							<MoviesList title="Em Alta" items={topRated!} />
 						</>
 					)
 				}
+
 				{
-					modal.isVisible && <MoreOptionsMovieModal />
+					isMoreOptionsItemModalVisible && (<MoreOptionsItemModal />)
+				}
+
+				{
+					isNewCollectionModalVisible && (<NewCollectionModal />)
 				}
 			</HomePageContainer>
 		</>

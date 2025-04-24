@@ -1,3 +1,6 @@
+import { Movie } from '../@types/movie';
+import { PAGES } from '../constants/pages';
+
 type SizeOptions = 'w200' | 'w300' | 'w500' | 'w780' | 'original';
 
 export const generateImageURL = (size: SizeOptions, path: string) => {
@@ -21,4 +24,45 @@ export const generateFormatedDate = (d: Date | undefined) => {
 	const formatedDate = `${day}/${month}/${date.getFullYear()}`;
 
 	return formatedDate;
+};
+
+export const isPublicPage = (pagePath: string) => {
+	const isPublic = PAGES.public.includes(pagePath);
+	return isPublic;
+};
+
+export const isAuthenticated = () => { };
+
+export const saveTokenInCookies = (token: string | number) => {
+	document.cookie = `user_token=${token};`;
+};
+
+export const accessSavedToken = (tokenName: string) => {
+	if (!global.document) return false;
+
+	let cookies = document.cookie;
+
+	if (cookies.indexOf(`${tokenName}=`) == -1) {
+		return false;
+	}
+
+	cookies = cookies.substring(cookies.indexOf(`${tokenName}=`), cookies.length);
+
+	if (cookies.indexOf(';') != -1) {
+		cookies = cookies.substring(0, cookies.indexOf(';'));
+	}
+
+	[, cookies] = cookies.split('=');
+
+	return decodeURI(cookies);
+};
+
+export const deleteSavedToken = (tokenName: string) => {
+	document.cookie = `${tokenName}=;`;
+};
+
+export const addMediaTypeMovie = (array: Movie[]): Movie[] => {
+	const newArray: Movie[] = array.map((item) => ({ ...item, media_type: 'movie' }));
+
+	return newArray;
 };

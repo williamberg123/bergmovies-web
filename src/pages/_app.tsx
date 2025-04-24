@@ -1,19 +1,51 @@
+import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
-import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
-import { store } from '../store';
+import { usePathname } from 'next/navigation';
 
 import { GlobalStyles } from '../styles/global-styles';
 import { Theme } from '../styles/theme';
+import { AuthProvider } from '../contexts/AuthProvider';
+import { isPublicPage } from '../utils';
+import { PrivateRoute } from '../components/PrivateRoute';
+import Message from '../components/Message';
+import { MessageProvider } from '../contexts/MessageProvider';
+import CollectionsProvider from '../contexts/CollectionsProvider';
+import { MoreOptionsItemProvider } from '../contexts/MoreOptionsItemProvider';
+import FavoritesProvider from '../contexts/FavoritesProvider';
+import { CurrentPageProvider } from '../contexts/CurrentPageProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
+	const pathname = usePathname();
+	const isPublicRoute = isPublicPage(pathname!);
+
+	useEffect(() => {
+		// deleteSavedToken('user_token');
+	}, []);
+
 	return (
-		<Provider store={store}>
-			<ThemeProvider theme={Theme}>
-				<Component {...pageProps} />
-				<GlobalStyles />
-			</ThemeProvider>
-		</Provider>
+		<ThemeProvider theme={Theme}>
+			<AuthProvider>
+				<CurrentPageProvider>
+					<MessageProvider>
+						<CollectionsProvider>
+							<MoreOptionsItemProvider>
+								<FavoritesProvider>
+									{isPublicRoute && <Component {...pageProps} />}
+									{!isPublicRoute && (
+										<PrivateRoute>
+											<Component {...pageProps} />
+										</PrivateRoute>
+									)}
+								</FavoritesProvider>
+								<Message />
+							</MoreOptionsItemProvider>
+						</CollectionsProvider>
+					</MessageProvider>
+				</CurrentPageProvider>
+			</AuthProvider>
+			<GlobalStyles />
+		</ThemeProvider>
 	);
 }
 

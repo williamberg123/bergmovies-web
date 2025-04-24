@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const LoginPageContainer = styled.div`
 	display: flex;
 	width: 100%;
+
+	@media (max-width: 1000px) {
+		flex-direction: column;
+	}
 `;
 
 export const HalfScreen = styled.div<{ bgColor: string }>`
@@ -13,6 +17,7 @@ export const HalfScreen = styled.div<{ bgColor: string }>`
 	align-items: center;
 	justify-content: center;
 	background-color: ${({ bgColor, theme }) => theme.colors[bgColor]};
+	padding: 20px;
 
 	& form {
 		width: 380px;
@@ -23,6 +28,13 @@ export const HalfScreen = styled.div<{ bgColor: string }>`
 		padding: 20px 20px 40px;
 		border-radius: 10px;
 		animation: form_emerge 1s ease;
+	}
+
+	@media (max-width: 1000px) {
+		width: 100%;
+		height: min-content;
+		min-height: 30vh;
+		background-color: ${({ theme }) => theme.colors.darkGray};
 	}
 
 	@keyframes form_emerge {
@@ -42,6 +54,10 @@ export const Title = styled.span`
 	color: ${({ theme }) => theme.colors.white};
 	font-size: 1.8rem;
 	animation: title_emerge 1s ease;
+
+	@media (max-width: 700px) {
+		font-size: 1rem;
+	}
 
 	@keyframes title_emerge {
 		0% {
@@ -70,6 +86,11 @@ export const ChangeFormTypeButton = styled.button`
 
 	&:hover {
 		background-color: ${({ theme }) => theme.colors.primaryLight};
+	}
+
+	@media (max-width: 700px) {
+		width: 250px;
+		height: 60px;
 	}
 
 	@keyframes change_button_emerge {
