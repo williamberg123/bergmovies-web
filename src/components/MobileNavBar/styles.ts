@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-export const NavBarContainer = styled.nav`
+export const NavBarContainer = styled.nav<{ isOpen: boolean }>`
 	width: 100%;
 	height: calc(100vh - 60px);
 	position: absolute;
 	top: 100%;
 	left: 0;
-	z-index: 20;
+	z-index: ${({ isOpen }) => isOpen ? 20 : -10};
 	overflow: hidden;
 `;
 
@@ -18,7 +18,6 @@ export const Navigation = styled.ul`
 	align-items: center;
 	background-color: ${({ theme }) => theme.colors.darkGray};
 	margin-left: auto;
-	z-index: 10;
 	transition: ease all 0.4s;
 
 	& li {

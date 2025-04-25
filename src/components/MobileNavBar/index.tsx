@@ -15,7 +15,7 @@ export const MobileNavBar: FC<MobileNavBarProps> = ({ isOpen }: MobileNavBarProp
 	const { currentPage } = useCurrentPage();
 
 	return (
-		<NavBarContainer style={{ backgroundColor: isOpen ? 'rgba(0, 0, 0, 0.7)' : 'transparent' }}>
+		<NavBarContainer isOpen={isOpen} style={{ backgroundColor: isOpen ? 'rgba(0, 0, 0, 0.7)' : 'transparent' }}>
 			<Navigation style={{ marginLeft: isOpen ? '30%' : '100%' }}>
 				<li>
 					<Link
