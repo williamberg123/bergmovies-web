@@ -13,6 +13,10 @@ export const Container = styled(Link)`
         transform: scale(1.1);
         transition: 0.3s;
     }
+
+	@media (max-width: 600px) {
+		width: 150px;
+	}
 `;
 
 export const ItemImage = styled.img`

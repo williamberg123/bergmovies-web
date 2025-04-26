@@ -26,6 +26,10 @@ export const FavoriteItemTitle = styled.span`
     text-align: center;
     padding: 10px 5px;
     border-radius: 20px 20px 0 0;
+
+	@media (max-width: 700px) {
+		font-size: 0.5rem;
+	}
 `;
 
 export const FavoriteItemImage = styled.img`

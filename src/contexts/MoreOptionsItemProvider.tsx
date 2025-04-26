@@ -12,6 +12,7 @@ export interface MoreOptionsItemProviderType {
 	clearItem: () => void;
 	// eslint-disable-next-line
 	isPlaylistModalOpen: boolean;
+	// eslint-disable-next-line
 	openPlaylistModal: () => void;
 	closePlaylistModal: () => void;
 	isMoreOptionsItemModalVisible: boolean;
@@ -39,6 +40,9 @@ export const MoreOptionsItemProvider = ({ children }: { children: ReactNode }) =
 	};
 
 	const openPlaylistModal = () => {
+		// if (selectedItem) {
+		// 	openMoreOptions(selectedItem);
+		// }
 		setIsPlaylistModalOpen(true);
 	};
 

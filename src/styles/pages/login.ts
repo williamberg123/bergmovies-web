@@ -119,6 +119,16 @@ export const Label = styled.label`
 	font-size: 0.9rem;
 	color: ${({ theme }) => theme.colors.white};
 	margin-top: 20px;
+
+	& > svg {
+		width: 20px;
+		height: 20px;
+		color: ${({ theme }) => theme.colors.primary};
+		position: absolute;
+		top: 38px;
+		right: 10px;
+		cursor: pointer;
+	}
 `;
 
 export const Input = styled.input`

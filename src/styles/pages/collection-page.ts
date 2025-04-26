@@ -6,6 +6,10 @@ export const CollectionTitle = styled.span`
     font-weight: bold;
     font-size: 2rem;
     padding: 20px;
+
+	@media (max-width: 700px) {
+		font-size: 1.4rem;
+	}
 `;
 
 export const CollectionsListContainer = styled.div`
@@ -14,6 +18,10 @@ export const CollectionsListContainer = styled.div`
     justify-content: center;
     flex-wrap: wrap;
     gap: 40px;
+
+	@media (max-width: 600px) {
+		gap: 20px;
+	}
 `;
 
 export const CollectionPageHeader = styled.header`

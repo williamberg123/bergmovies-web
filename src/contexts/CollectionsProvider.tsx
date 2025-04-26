@@ -107,7 +107,6 @@ export default function CollectionsProvider({ children }: { children: ReactNode 
 
 	const deleteCollection = async (collection_id: string) => {
 		try {
-			console.log('collection_id', collection_id);
 			await deleteOneCollection(collection_id, token);
 			retrieveAllCollections();
 

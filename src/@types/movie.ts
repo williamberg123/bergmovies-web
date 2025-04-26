@@ -23,4 +23,5 @@ export interface Movie {
 	genres: Genre[];
 	release_date: Date;
 	media_type: 'movie' | 'serie';
+	origin_country: string[];
 }

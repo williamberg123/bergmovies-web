@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NextPage } from 'next';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 
 import { isAxiosError } from 'axios';
 import Head from 'next/head';
@@ -16,6 +17,7 @@ import useMediaQuery from '../hooks/useMediaQuery';
 
 const Login: NextPage = () => {
 	const [isLogin, setIsLogin] = useState(true);
+	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 	const { handleSubmit, register } = useForm();
 	const { changeUserState, changeTokenState } = useAuth();
 	const { push } = useRouter();
@@ -25,6 +27,8 @@ const Login: NextPage = () => {
 	const changeIsLogin = () => {
 		setIsLogin((s) => !s);
 	};
+
+	const toggleIsPasswordVisible = () => setIsPasswordVisible((s) => !s);
 
 	const login = async (data: FieldValues) => {
 		const response = await toLogUser(data);
@@ -103,9 +107,14 @@ const Login: NextPage = () => {
 							<Input {...register('email', { required: true })} type="email" placeholder="digite seu email" />
 						</Label>
 
-						<Label>
+						<Label style={{ position: 'relative' }}>
 							Password
-							<Input {...register('password', { required: true })} type="password" placeholder="digite sua senha" />
+							<Input {...register('password', { required: true })} type={isPasswordVisible ? 'text' : 'password'} placeholder="digite sua senha" />
+							{
+								isPasswordVisible
+								? <IoMdEyeOff onClick={toggleIsPasswordVisible} />
+								: <IoMdEye onClick={toggleIsPasswordVisible} />
+							}
 						</Label>
 
 						<ChangeFormTypeLink onClick={changeIsLogin}>
