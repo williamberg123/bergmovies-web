@@ -34,7 +34,7 @@ const MoreOptionsItemModal: FC = () => {
 					Adicionar à coleção
 					<IoIosArrowDown />
 				</AddToCollectionButton>
-				<AddToFavoritesButton onClick={() => addToFavorites()}>
+				<AddToFavoritesButton onClick={() => addToFavorites(item!)}>
 					Adicionar aos favoritos
 				</AddToFavoritesButton>
 

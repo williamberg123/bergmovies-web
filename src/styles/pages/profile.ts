@@ -39,6 +39,11 @@ export const PasswordResetContainer = styled.div`
 		margin-bottom: 10px;
 		font-size: 1.2rem;
 	}
+
+	@media (max-width: 600px) {
+		margin: 40px 0 0 0;
+		padding: 20px;
+	}
 `;
 
 export const EmailInput = styled.input`
@@ -50,6 +55,10 @@ export const EmailInput = styled.input`
 	padding: 15px 20px;
 	border-radius: 10px;
 	font-size: 1.1rem;
+
+	@media (max-width: 600px) {
+		width: 100%;
+	}
 `;
 
 export const OpenPasswordResetModalButton = styled(ExitAccountButton)`
@@ -65,10 +74,21 @@ export const OpenPasswordResetModalButton = styled(ExitAccountButton)`
 	&:hover {
 		opacity: 0.7;
 	}
+
+	@media (max-width: 600px) {
+		width: 200px;
+		height: 50px;
+		font-size: 0.8rem;
+	}
 `;
 
 export const DeleteAccountButton = styled(ExitAccountButton)`
 	width: 300px;
 	height: 60px;
 	margin-left: 0;
+
+	@media (max-width: 600px) {
+		width: 200px;
+		height: 50px;
+	}
 `;

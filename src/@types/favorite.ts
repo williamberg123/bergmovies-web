@@ -1,3 +1,5 @@
+import { CollectionItemProps } from './collections';
+
 export interface FavoriteItemProps {
     id: number;
     title: string;
@@ -11,7 +13,7 @@ export interface FavoriteProviderType {
 	favorites: FavoriteItemProps[]
 	getFavorites: () => void;
 	// eslint-disable-next-line
-	addToFavorites: () => void;
+	addToFavorites: (currentItem: CollectionItemProps) => void;
 	// eslint-disable-next-line
 	removeItemFromFavorites: (item_id: number) => void;
 }

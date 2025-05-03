@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { UseHomeResponse } from '../@types/home';
 import { Movie } from '../@types/movie';
-import { getData } from '../services/tmdb';
-import { addMediaTypeMovie } from '../utils';
+import { getData, getRecommendationsMovies, getTopRatedMovies } from '../services/tmdb';
 
 export const useHome = (): UseHomeResponse => {
 	const [featuredMovie, setFeaturedMovie] = useState<Movie | null>(null);
@@ -12,13 +11,14 @@ export const useHome = (): UseHomeResponse => {
 
 	const isFirstRender = useRef(true);
 
-	const getTopRatedMovies = async () => {
-		const topRatedResponse = await getData('/movie/top_rated');
-		const topRatedUpdated = addMediaTypeMovie(topRatedResponse.results);
+	const getTopRated = async () => {
+		const topRatedUpdated = await getTopRatedMovies();
+		if (!topRatedUpdated) return;
+
 		setTopRated(topRatedUpdated);
 	};
 
-	const getFeaturedMovie = async (): Promise<String> => {
+	const getFeaturedMovie = async (): Promise<string> => {
 		const nowPlayingResponse = await getData('/movie/now_playing');
 
 		const randomIndex = Math.floor(Math.random() * (nowPlayingResponse.results.length));
@@ -30,14 +30,14 @@ export const useHome = (): UseHomeResponse => {
 		return featuredMovieId;
 	};
 
-	const getRecommendations = async (featuredMovieId: String) => {
-		const recommendatedMoviesResponse = await getData(`/movie/${featuredMovieId}/recommendations`);
-		setRecommendations(recommendatedMoviesResponse.results);
+	const getRecommendations = async (itemId: string) => {
+		const recommendatedMovies = await getRecommendationsMovies(itemId);
+		setRecommendations(recommendatedMovies);
 	};
 
 	const getHomePageInfo = async () => {
 		try {
-			getTopRatedMovies();
+			getTopRated();
 
 			const featuredMovieId = await getFeaturedMovie();
 			await getRecommendations(featuredMovieId);

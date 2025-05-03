@@ -8,7 +8,7 @@ import { ArrowLeft, ArrowRight, Container, Movies, MoviesContainer, MoviesListTi
 
 export interface MoviesListProps {
 	title: string;
-	items: any[];
+	items: MovieType[] | any[] | null;
 }
 
 export const MoviesList: FC<MoviesListProps> = ({ title, items }: MoviesListProps) => {
@@ -88,7 +88,7 @@ export const MoviesList: FC<MoviesListProps> = ({ title, items }: MoviesListProp
 
 				<Movies ref={listRef} id="list" style={{ marginLeft: scrollX }}>
 					{
-						items.map((item: MovieType, index: number) => <Movie key={`movie-${index}`} {...item} />)
+						items?.map((item: MovieType, index: number) => <Movie key={`movie-${index}`} {...item} />)
 					}
 				</Movies>
 

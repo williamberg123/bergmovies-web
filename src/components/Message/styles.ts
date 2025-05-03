@@ -29,6 +29,10 @@ export const Container = styled.div<{ show: boolean; mType: MessageType; isFirst
         margin-left: 10px;
     }
 
+	@media (max-width: 500px) {
+		min-width: 300px;
+	}
+
     @keyframes toemergemessage {
         0% {
             transform: translateY(-50px);

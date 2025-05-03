@@ -6,6 +6,7 @@ import { useAuth } from '../hooks/useAuth';
 import { api } from '../services/api';
 import { useMessage } from '../hooks/useMessage';
 import { useMoreOptionsItemModal } from '../hooks/useMoreOptionsItemModal';
+import { Movie } from '../@types/movie';
 
 export const FavoritesContext = createContext({});
 
@@ -15,7 +16,7 @@ export default function FavoritesProvider({ children }: { children: ReactNode })
 
 	const { token, user } = useAuth();
 	const { newMessage } = useMessage();
-	const { closeMoreOptions, item } = useMoreOptionsItemModal();
+	const { closeMoreOptions } = useMoreOptionsItemModal();
 
 	const getFavorites = async () => {
 		try {
@@ -35,9 +36,9 @@ export default function FavoritesProvider({ children }: { children: ReactNode })
 		}
 	};
 
-	const addToFavorites = async () => {
+	const addToFavorites = async (currentItem: Movie) => {
 		try {
-			const { id, backdrop_path, title } = item!;
+			const { id, backdrop_path, title } = currentItem;
 
 			const response = await api.patch(`/favorites/${user.fav_list_id}/add_item`, {
 				item: {
